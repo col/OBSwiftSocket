@@ -393,7 +393,7 @@ func generateEnums(_ enums: [OBSEnum]) -> String {
                         
                         return "public static let \(camelized(enumId.enumIdentifier)) = \(enumName)(rawValue: \(value))"
                     }
-                } else if case .int(let i) = enumId.enumValue {
+                } else if case .number(let i) = enumId.enumValue {
                     return "public static let \(camelized(enumId.enumIdentifier)) = \(i)"
                 } else {
                     return ""
@@ -421,7 +421,7 @@ func generateEnums(_ enums: [OBSEnum]) -> String {
                 switch enumId.enumValue {
                 case .string(let str):
                     value = Int(str) != nil ? "\(Int(str)!)" : "\"\(str)\""
-                case .int(let i):
+                case .number(let i):
                     value = "\(i)"
                 default:
                     return ""
@@ -437,8 +437,8 @@ func generateEnums(_ enums: [OBSEnum]) -> String {
                     switch c.rpcVersion {
                     case .string(let str):
                         return Int(str)!
-                    case .int(let i):
-                        return i
+                    case .number(let i):
+                        return Int(i)
                     default:
                         return 0
                     }

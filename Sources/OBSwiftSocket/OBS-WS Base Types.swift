@@ -46,10 +46,10 @@ public struct UntypedMessage: Codable {
             casted = try? data.toCodable(OpDataTypes.Event.self)
         case .request:
             // Get name of request
-            guard case .string(let requestTypeName) = data[dynamicMember: OpDataTypes.Request.CodingKeys.type.rawValue],
+            guard case .string(let requestTypeName) = data[OpDataTypes.Request.CodingKeys.type.rawValue],
                   let requestType = OBSRequests.AllTypes(rawValue: requestTypeName),
-                  case .string(let id) = data[dynamicMember: OpDataTypes.Request.CodingKeys.id.rawValue],
-                  let data = data[dynamicMember: OpDataTypes.Request.CodingKeys.data.rawValue]
+                  case .string(let id) = data[OpDataTypes.Request.CodingKeys.id.rawValue],
+                  let data = data[OpDataTypes.Request.CodingKeys.data.rawValue]
             else { casted = nil; break }
             
             casted = OpDataTypes.Request(type: requestType, id: id, data: data)
